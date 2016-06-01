@@ -6,9 +6,15 @@ body {
 }
 #page-wrapper {
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, hsla(181,74%,69%,1) 0%,hsla(190,67%,93%,1) 100%);
 }
 #App {
-    height: 100%;
-    background-color: #F1F5F8;
+    height: 95%;
+    width: 95%;
+    background-color: white;
     display: flex;
+    border-radius: .5rem;
 }
