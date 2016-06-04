@@ -11,6 +11,7 @@ require('./app.css');
 
 import Sidebar from '../../components/sidebar/index.jsx';
 import Header from '../../components/header/index.jsx';
+import TodoList from '../../components/todo-list/index.jsx';
 
 const App = React.createClass({
     render: function () {
@@ -19,6 +20,7 @@ const App = React.createClass({
                 <Sidebar/>
                 <main className="main">
                     <Header/>
+                    <TodoList/>
                 </main>
             </article>
         );
