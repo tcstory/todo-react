@@ -37,18 +37,29 @@
         height: 1.4em;
     }
     .status-label {
-        width: 4.28em;
+        min-width: 4.28em;
         height: 1.714em;
         text-align: center;
         line-height: 1.714em;
-        background-color: #58C17C;
         font-size: 14px;
         color: white;
         border-radius: .285em;
         display: inline-block;
+        vertical-align: top;
+        padding: 0 .5em;
+        &.done {
+            background-color: #58C17C;
+        }
+        &.cancel {
+            background-color: hsl(3, 100%, 70%);
+        }
+        &.ongoing {
+            background-color: #03A9F4;
+        }
     }
     .todo-item-text {
         height: 1.5em;
+        line-height: 1.5em;
         display: inline-block;
         margin-right: .625em;
     }
@@ -57,9 +68,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     }
     .checkout-icon {
         font-size: 1.2em;
         color: #58C17C;
+    }
+    .unfinished-checkout-icon {
+        width: 1em;
+        height: 1.1875em;
+        border: .0625em solid #B9B6B6;
+        border-radius: .25em;
     }
 }
