@@ -10,12 +10,16 @@ require('./app.css');
 
 
 import Sidebar from '../../components/sidebar/index.jsx';
+import Header from '../../components/header/index.jsx';
 
 const App = React.createClass({
     render: function () {
         return (
             <article id="App">
                 <Sidebar/>
+                <main className="main">
+                    <Header/>
+                </main>
             </article>
         );
     }

@@ -18,3 +18,8 @@ body {
     display: flex;
     border-radius: .5rem;
 }
+
+#App .main {
+    flex-grow: 1;
+    display: flex;
+}

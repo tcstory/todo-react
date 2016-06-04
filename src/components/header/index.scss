@@ -1,0 +1,67 @@
+.header {
+    flex-grow: 1;
+    height: 6em;
+    display: flex;
+    border-bottom: .0625em solid #F3F3F3;
+    .calender-btn {
+        width: 3em;
+        height: 100%;
+        font-size: 1.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .calender-icon {
+        color: #A5DAB2;
+    }
+    .right-part {
+        width: 15.625em;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .input-row {
+        flex-grow: 1;
+        display: flex;
+    }
+    .todo-input {
+        flex-grow: 1;
+        outline: none;
+        border: none;
+        color: #8D97A7;
+        font-size: 1.5em;
+    }
+    .add-todo-btn {
+        width: 5.625em;
+        height: 2.25em;
+        background: #58C17C;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2em;
+        cursor: pointer;
+    }
+    .bell-wrapper {
+        width: 3.125em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .bell-icon {
+        font-size: 1.2em;
+        color: #B8BEC5;
+    }
+    .number {
+        width: 1.375em;
+        height: 1.375em;
+        background-color: #FF6E64;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
