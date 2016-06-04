@@ -20,6 +20,18 @@ const Sidebar = React.createClass({
                     <div className="user-avatar"></div>
                     <div className="user-name">中华田园犬</div>
                 </div>
+                <div className="search-row">
+                    <div className="search-icon"><i className="fa fa-search" aria-hidden="true"></i></div>
+                    <input type="text" className="search-input" placeholder="Search"/>
+                </div>
+                <div className="category-list">
+                    <div className="category-item">
+                        <div className="icon-wrapper">
+                            <div className="icon"></div>
+                        </div>
+                        <p className="category-text">All Tasks</p>
+                    </div>
+                </div>
             </aside>
         )
     }
