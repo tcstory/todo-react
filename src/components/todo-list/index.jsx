@@ -2,8 +2,14 @@ import React from 'react';
 
 require('./index.scss');
 
+import createScrollBar from '../scrollbar';
 
 const TodoList = React.createClass({
+    componentDidMount: function () {
+        createScrollBar({
+            target: document.body.querySelector('.todo-list')
+        })  
+    },
     render: function () {
         return (
             <article className="todo-list">
@@ -176,5 +182,7 @@ const TodoList = React.createClass({
         )
     }
 });
+
+
 
 export default TodoList;
