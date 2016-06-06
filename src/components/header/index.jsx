@@ -15,8 +15,8 @@ const Header = React.createClass({
             data: {
                 title: this.refs.todoInput.value,
                 id: Math.random(),
-                createTime: '2016.05.24',
-                status: STATUS.DONE
+                createTime: Date.now(),
+                status: STATUS.UNFINISHED
             }
         });
         this.refs.todoInput.value = '';
