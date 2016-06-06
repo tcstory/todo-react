@@ -27,9 +27,19 @@ const Sidebar = React.createClass({
                 <div className="category-list">
                     <div className="category-item">
                         <div className="icon-wrapper">
-                            <div className="icon"></div>
+                            <div className="icon">
+                                <i className="fa fa-star-half-o" aria-hidden="true"></i>
+                            </div>
                         </div>
                         <p className="category-text">All Tasks</p>
+                    </div>
+                    <div className="category-subitem completed-tasks">
+                        <div className="icon"></div>
+                        <p className="subitem-text">Completed Tasks</p>
+                    </div>
+                    <div className="category-subitem unfinished-tasks">
+                        <div className="icon"></div>
+                        <p className="subitem-text">Unfinished Tasks</p>
                     </div>
                 </div>
             </aside>
