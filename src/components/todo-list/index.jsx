@@ -40,10 +40,10 @@ const TodoItem = React.createClass({
             );
         } else if (this.props.todo.status === STATUS.UNFINISHED) {
             status = (
-                <div className="status-label cancel">Unfinished</div>
+                <div className="status-label unfinished">Unfinished</div>
             );
             checkoutBox = (
-                <i onClick={this.handleToggleTodoStatus.bind(this,false)} className="unfinished-checkout-icon" aria-hidden="true"/>
+                <i onClick={this.handleToggleTodoStatus.bind(this,false)} className="fa fa-square-o checkout-icon unfinished" aria-hidden="true"/>
             );
         } else if (this.props.todo.status === STATUS.ONGOING) {
             status = (

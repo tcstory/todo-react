@@ -51,7 +51,7 @@
         &.done {
             background-color: #58C17C;
         }
-        &.cancel {
+        &.unfinished {
             background-color: hsl(3, 100%, 70%);
         }
         &.ongoing {
@@ -74,11 +74,9 @@
     .checkout-icon {
         font-size: 1.2em;
         color: #58C17C;
+        &.unfinished {
+            color: hsl(3, 100%, 70%);
+        }
     }
-    .unfinished-checkout-icon {
-        width: 1em;
-        height: 1.1875em;
-        border: .0625em solid #B9B6B6;
-        border-radius: .25em;
-    }
+
 }
