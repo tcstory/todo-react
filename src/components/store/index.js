@@ -17,12 +17,16 @@ let _data = {
     ]
 };
 
+let _d = localStorage.getItem('todo-list');
+if (_d) {
+    _data.todoList = JSON.parse(_d);
+}
 let store = assign({}, EventEmitter.prototype, {
     getAll: function() {
         return _data;
     },
     addTodo: function (todo) {
-        _data.todoList.push(todo);
+        _data.todoList.unshift(todo);
     },
     toggleTodoStatus: function (data) {
         for (let todo of _data.todoList) {
@@ -34,12 +38,16 @@ let store = assign({}, EventEmitter.prototype, {
     },
     emitChange: function() {
         this.emit('change');
+        this._save();
     },
     addChangeListener: function(callback) {
         this.on('change', callback);
     },
     removeChangeListener: function(callback) {
         this.removeListener('change', callback);
+    },
+    _save: function () {
+        localStorage.setItem('todo-list',JSON.stringify(_data.todoList))
     }
 });
 
