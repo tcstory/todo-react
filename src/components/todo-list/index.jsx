@@ -5,7 +5,7 @@ import {STATUS} from '../constants/';
 require('./index.scss');
 import createScrollBar from '../scrollbar';
 
-import formatDate from '../date-formater'
+import DateFormater from '../date-formater'
 
 
 const TodoItem = React.createClass({
@@ -60,7 +60,11 @@ const TodoItem = React.createClass({
                         <p className="todo-item-text">{this.props.todo.title}</p>
                         {status}
                     </div>
-                    <p className="todo-item-create-time">{formatDate(new Date(this.props.todo.createTime),'yyyy年MM月dd日 hh时mm分')}</p>
+                    <p className="todo-item-create-time">
+                        {
+                            (new DateFormater(this.props.todo.createTime)).format('yyyy年MM月dd日 hh时mm分')
+                        }
+                    </p>
                 </div>
                 <div className="checkout-box">
                     {checkoutBox}
