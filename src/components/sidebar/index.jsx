@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
+import PubSub from 'PubSub-js';
 
+import {STATUS} from '../constants/';
 require('./index.scss');
 
 const Sidebar = React.createClass({
@@ -10,7 +12,11 @@ const Sidebar = React.createClass({
     handleItemClick: function(which) {
         if (which === 0) {
             if (this.state.selectedItem === 0) {
-                this.setState({selectedItem: -1});
+                this.setState({
+                    selectedItem: -1,
+                    selectedSubItem: -1
+                });
+                this.props.__changeTodoType(STATUS.ALL);
             } else {
                 this.setState({selectedItem: 0});
             }
@@ -20,8 +26,10 @@ const Sidebar = React.createClass({
         this.setState({selectedSubItem: which});
         switch (which) {
             case 0:
+                this.props.__changeTodoType(STATUS.DONE);
                 return;
             case 1:
+                this.props.__changeTodoType(STATUS.UNFINISHED);
                 return;
             default:
         }

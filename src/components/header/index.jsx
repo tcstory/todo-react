@@ -1,7 +1,3 @@
-/**
- * Created by tcstory on 6/4/16.
- */
-
 import React from 'react';
 import AppDispacher from '../dispacher/dispacher.js';
 
