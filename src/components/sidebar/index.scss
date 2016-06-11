@@ -1,7 +1,7 @@
 .sidebar {
     height: 100%;
     width: 17em;
-    border-right: .0625em solid #F3F3F3;
+    border-right: 0.0625em solid #F3F3F3;
     .header-row {
         width: 100%;
         height: 5em;
@@ -28,11 +28,11 @@
         .user-avatar {
             width: 4.5em;
             height: 4.5em;
-            background-image: url(./assets/img/dog.jpg);
+            background-image: url("./assets/img/dog.jpg");
             background-size: 100% 100%;
             background-repeat: no-repeat;
             border-radius: 50%;
-            box-shadow: 0 0 0 .5em white, 0 0 .625em .5em #BDC4CD;
+            box-shadow: 0 0 0 0.5em white, 0 0 0.625em 0.5em #BDC4CD;
         }
         .user-name {
             margin-top: 1.5em;
@@ -52,8 +52,8 @@
         justify-content: center;
         align-items: center;
         position: absolute;
-        top: .5em;
-        left: .625em;
+        top: 0.5em;
+        left: 0.625em;
         .fa-search {
             font-size: 1.2em;
             color: #B8BEC5;
@@ -63,10 +63,9 @@
         width: 100%;
         height: 100%;
         outline: none;
-        border: .0625em solid #F3F3F3;
+        border: 0.0625em solid #F3F3F3;
         border-radius: 1em;
-        padding: 0 1em;
-        padding-left: 2.5em;
+        padding: 0 1em 0 2.5em;
         font-size: 100%;
     }
     .category-list {
@@ -76,6 +75,18 @@
         display: flex;
         flex-direction: column;
     }
+    .category-item-wrapper.open {
+        .category-subitem {
+            opacity: 1;
+        }
+        .category-subitem-wrapper {
+            max-height: 100em;
+        }
+    }
+    .category-subitem-wrapper {
+        max-height: 0;
+        transition: max-height 450ms ease-out;
+    }
     .category-item {
         height: 2.8em;
         flex-grow: 1;
@@ -83,6 +94,7 @@
         background-color: #58C17C;
         color: white;
         position: relative;
+        cursor: pointer;
         &::after {
             content: '';
             display: block;
@@ -91,7 +103,7 @@
             top: 100%;
             width: 0;
             height: 0;
-            border: solid .375em;
+            border: solid 0.375em;
             border-color: #58C17C transparent transparent transparent;
         }
         .icon-wrapper {
@@ -112,8 +124,12 @@
     .category-subitem {
         height: 2em;
         display: flex;
-        background-color: #F6F7F9;
-        margin: .875em .5em 0;
+        margin: 0.875em 0.5em 0;
+        cursor: pointer;
+        opacity: 0;
+        &.selected {
+            background-color: #F6F7F9;
+        }
         .icon {
             width: 2em;
             height: 2em;
@@ -122,8 +138,8 @@
             align-items: center;
         }
         .icon::after {
-            width: .5em;
-            height: .5em;
+            width: 0.5em;
+            height: 0.5em;
             content: '';
             border-radius: 50%;
             display: block;
@@ -134,9 +150,15 @@
         &.unfinished-tasks .icon::after {
             background-color: #ff6e66;
         }
-        .subitem-text{
+        .subitem-text {
             flex-grow: 1;
             line-height: 2em;
         }
+    }
+    .category-subitem:nth-of-type(1) {
+        transition: background-color 300ms ease-out, opacity 300ms ease-out;
+    }
+    .category-subitem:nth-of-type(2) {
+        transition: background-color 300ms ease-out, opacity 450ms ease-out;
     }
 }
