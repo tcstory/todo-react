@@ -87,6 +87,12 @@
         max-height: 0;
         transition: max-height 450ms ease-out;
     }
+    .category-item-wrapper.open {
+        .category-item::after {
+            opacity: 1;
+            transition: 450ms opacity ease-out;
+        }
+    }
     .category-item {
         height: 2.8em;
         flex-grow: 1;
@@ -105,6 +111,7 @@
             height: 0;
             border: solid 0.375em;
             border-color: #58C17C transparent transparent transparent;
+            opacity: 0;
         }
         .icon-wrapper {
             width: 2.25em;
@@ -147,6 +154,9 @@
         &.completed-tasks .icon::after {
             background-color: #58C17C;
         }
+        &.ongoing-tasks .icon::after {
+            background-color: #03A9F4;
+        }
         &.unfinished-tasks .icon::after {
             background-color: #ff6e66;
         }
@@ -156,9 +166,12 @@
         }
     }
     .category-subitem:nth-of-type(1) {
-        transition: background-color 300ms ease-out, opacity 300ms ease-out;
+        transition: background-color 300ms ease-out, opacity 150ms ease-out;
     }
     .category-subitem:nth-of-type(2) {
+        transition: background-color 300ms ease-out, opacity 300ms ease-out;
+    }
+    .category-subitem:nth-of-type(3) {
         transition: background-color 300ms ease-out, opacity 450ms ease-out;
     }
 }

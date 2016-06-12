@@ -6,7 +6,7 @@ require('./index.scss');
 
 const Sidebar = React.createClass({
     propTypes: {
-        __changeTodoType: React.PropTypes.func    
+        __changeTodoType: React.PropTypes.func
     },
     getInitialState: function() {
         return {selectedItem: -1, selectedSubItem: -1};
@@ -31,6 +31,9 @@ const Sidebar = React.createClass({
                 this.props.__changeTodoType(STATUS.DONE);
                 return;
             case 1:
+                this.props.__changeTodoType(STATUS.ONGOING);
+                return;
+            case 2:
                 this.props.__changeTodoType(STATUS.UNFINISHED);
                 return;
             default:
@@ -73,9 +76,15 @@ const Sidebar = React.createClass({
                                 <div className="icon"></div>
                                 <p className="subitem-text">Completed Tasks</p>
                             </div>
-                            <div className={cx('category-subitem', 'unfinished-tasks', {
+                            <div className={cx('category-subitem', 'ongoing-tasks', {
                                 selected: this.state.selectedSubItem === 1
                             })} onClick={this.handleSubItemClick.bind(this, 1)}>
+                                <div className="icon"></div>
+                                <p className="subitem-text">Ongoing Tasks</p>
+                            </div>
+                            <div className={cx('category-subitem', 'unfinished-tasks', {
+                                selected: this.state.selectedSubItem === 2
+                            })} onClick={this.handleSubItemClick.bind(this, 2)}>
                                 <div className="icon"></div>
                                 <p className="subitem-text">Unfinished Tasks</p>
                             </div>

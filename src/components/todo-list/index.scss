@@ -99,6 +99,9 @@
         &.unfinished {
             color: hsl(3, 100%, 70%);
         }
+        &.ongoing {
+            color: #03A9F4;
+        }
     }
 
 }

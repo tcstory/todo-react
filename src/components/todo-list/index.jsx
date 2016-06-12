@@ -14,12 +14,20 @@ const TodoItem = React.createClass({
         todo: React.PropTypes.object,
         todoList: React.PropTypes.array
     },
-    handleToggleTodoStatus: function (flag) {
-        if (flag) {
+    handleToggleTodoStatus: function (status) {
+        if (status === STATUS.UNFINISHED) {
             AppDispacher.dispatch({
                 type: 'TOGGLE_TODO_STATUS',
                 data: {
                     status: STATUS.UNFINISHED,
+                    id: this.props.todo.id
+                }
+            });
+        } else if (status === STATUS.ONGOING) {
+            AppDispacher.dispatch({
+                type: 'TOGGLE_TODO_STATUS',
+                data: {
+                    status: STATUS.ONGOING,
                     id: this.props.todo.id
                 }
             });
@@ -49,18 +57,21 @@ const TodoItem = React.createClass({
                 <div className="status-label done">Done</div>
             );
             checkoutBox = (
-                <i onClick={this.handleToggleTodoStatus.bind(this,true)} className="fa fa-check-square checkout-icon" aria-hidden="true"/>
+                <i onClick={this.handleToggleTodoStatus.bind(this,STATUS.UNFINISHED)} className="fa fa-check-square checkout-icon" aria-hidden="true"/>
             );
         } else if (this.props.todo.status === STATUS.UNFINISHED) {
             status = (
                 <div className="status-label unfinished">Unfinished</div>
             );
             checkoutBox = (
-                <i onClick={this.handleToggleTodoStatus.bind(this,false)} className="fa fa-square-o checkout-icon unfinished" aria-hidden="true"/>
+                <i onClick={this.handleToggleTodoStatus.bind(this,STATUS.ONGOING)} className="fa fa-square-o checkout-icon unfinished" aria-hidden="true"/>
             );
         } else if (this.props.todo.status === STATUS.ONGOING) {
             status = (
                 <div className="status-label ongoing">Ongoing</div>
+            );
+            checkoutBox = (
+                <i onClick={this.handleToggleTodoStatus.bind(this,STATUS.DONE)} className="fa fa-circle-o-notch checkout-icon ongoing" aria-hidden="true"/>
             );
         }
         return (
