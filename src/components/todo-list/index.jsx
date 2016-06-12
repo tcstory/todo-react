@@ -1,5 +1,6 @@
 import React from 'react';
 import AppDispacher from '../dispacher/dispacher.js';
+// import PubSub from 'pubsub-js';
 
 import {STATUS} from '../constants/';
 require('./index.scss');
@@ -32,6 +33,14 @@ const TodoItem = React.createClass({
             });
         }
     },
+    // handleModifyTodo: function () {
+        // PubSub.publish('modifyTodo', {
+            // title: this.props.todo.title,
+            // id: this.props.todo.id,
+            // createTime: this.props.todo.createTime,
+            // status: this.props.todo.status
+        // });
+    // },
     render: function () {
         let status;
         let checkoutBox;
@@ -70,6 +79,9 @@ const TodoItem = React.createClass({
                         }
                     </p>
                 </div>
+                {/*<div className="modify-todo-btn">*/}
+                {/*<i onClick={this.handleMOdifyTodo} className="fa fa-pencil-square-o modify-todo-btn-icon" aria-hidden="true"></i>*/}
+                {/*</div>*/}
                 <div className="checkout-box">
                     {checkoutBox}
                 </div>
