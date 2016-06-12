@@ -25,12 +25,12 @@ const Header = React.createClass({
                 </div>
                 <div className="input-row">
                     <input ref="todoInput" type="text" className="todo-input"
-                           onKeyUp={(ev)=>{
-                                if (ev.keyCode == 13) {
-                                    this.handleAddTodo()
-                                }
-                           }}
-                           placeholder="Wednesday, 15th October, 2015"/>
+                        onKeyUp={(ev)=>{
+                            if (ev.keyCode == 13) {
+                                this.handleAddTodo();
+                            }
+                        }}
+                        placeholder="Wednesday, 15th October, 2015"/>
                 </div>
                 <div className="right-part">
                     <div className="bell-wrapper">
@@ -40,7 +40,7 @@ const Header = React.createClass({
                     <div className="add-todo-btn" onClick={this.handleAddTodo}>Add Task</div>
                 </div>
             </header>
-        )
+        );
     }
 });
 

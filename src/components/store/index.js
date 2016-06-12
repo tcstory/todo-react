@@ -1,11 +1,5 @@
-import EventEmitter from 'events'
-import assign from 'object-assign'
-
-const STATUS = {
-    DONE: 0,
-    CANCEL: 1,
-    ONGOING: 2
-};
+import EventEmitter from 'events';
+import assign from 'object-assign';
 
 let _data = {
     userInfo: {
@@ -47,10 +41,9 @@ let store = assign({}, EventEmitter.prototype, {
         this.removeListener('change', callback);
     },
     _save: function () {
-        localStorage.setItem('todo-list',JSON.stringify(_data.todoList))
+        localStorage.setItem('todo-list',JSON.stringify(_data.todoList));
     }
 });
 
 
 export default store;
-

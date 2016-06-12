@@ -5,10 +5,14 @@ import {STATUS} from '../constants/';
 require('./index.scss');
 import createScrollBar from '../scrollbar';
 
-import DateFormater from '../date-formater'
+import DateFormater from '../date-formater';
 
 
 const TodoItem = React.createClass({
+    propTypes: {
+        todo: React.PropTypes.object,
+        todoList: React.PropTypes.array
+    },
     handleToggleTodoStatus: function (flag) {
         if (flag) {
             AppDispacher.dispatch({
@@ -17,7 +21,7 @@ const TodoItem = React.createClass({
                     status: STATUS.UNFINISHED,
                     id: this.props.todo.id
                 }
-            })
+            });
         } else {
             AppDispacher.dispatch({
                 type: 'TOGGLE_TODO_STATUS',
@@ -25,7 +29,7 @@ const TodoItem = React.createClass({
                     status: STATUS.DONE,
                     id: this.props.todo.id
                 }
-            })
+            });
         }
     },
     render: function () {
@@ -70,21 +74,24 @@ const TodoItem = React.createClass({
                     {checkoutBox}
                 </div>
             </div>
-        )
+        );
     }
 });
 
 
 const TodoList = React.createClass({
+    propTypes: {
+        todoList: React.PropTypes.array
+    },
     getDefaultProps: function () {
         return {
             todoList: []
-        }
+        };
     },
     componentDidMount: function () {
         createScrollBar({
             target: document.body.querySelector('.todo-list')
-        })  
+        });
     },
     render: function () {
         return (
@@ -93,11 +100,11 @@ const TodoList = React.createClass({
                     this.props.todoList.map((todo)=>{
                         return (
                             <TodoItem todo={todo} key={todo.id}/>
-                        )
+                        );
                     })
                 }
             </article>
-        )
+        );
     }
 });
 

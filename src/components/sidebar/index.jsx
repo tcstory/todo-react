@@ -1,13 +1,15 @@
 import React from 'react';
 import cx from 'classnames';
-import PubSub from 'PubSub-js';
 
 import {STATUS} from '../constants/';
 require('./index.scss');
 
 const Sidebar = React.createClass({
+    propTypes: {
+        __changeTodoType: React.PropTypes.func    
+    },
     getInitialState: function() {
-        return {selectedItem: -1, selectedSubItem: -1}
+        return {selectedItem: -1, selectedSubItem: -1};
     },
     handleItemClick: function(which) {
         if (which === 0) {
@@ -81,7 +83,7 @@ const Sidebar = React.createClass({
                     </div>
                 </div>
             </aside>
-        )
+        );
     }
 });
 

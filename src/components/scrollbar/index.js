@@ -5,7 +5,7 @@ let scrollBar;
 let slider;
 function createScrollBar(opts) {
     if (typeof opts.target === 'undefined') {
-        throw new Error('缺少必填参数')
+        throw new Error('缺少必填参数');
     } else if (typeof opts.wrapper === 'undefined') {
         target = opts.target;
         target.addEventListener('wheel', handleWheel1);
@@ -75,10 +75,11 @@ function handleWheel2(ev) {
 function handleTouchMove1(ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
+    let deltaY = -1;
     if ((ev.targetTouches[0].clientY - handleTouchMove1.curPos) > 0) {
-        let deltaY = 30;
+        deltaY = 30;
     } else {
-        let deltaY = -30;
+        deltaY = -30;
     }
     handleTouchMove1.curPos = ev.targetTouches[0].clientY;
     target.scrollTop -= deltaY;
@@ -88,10 +89,11 @@ function handleTouchMove2(ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
     activateScrollBar();
+    let deltaY = -1;
     if ((ev.targetTouches[0].clientY - handleTouchMove2.curPos) > 0) {
-        let deltaY = 30;
+        deltaY = 30;
     } else {
-        let deltaY = -30;
+        deltaY = -30;
     }
     handleTouchMove2.curPos = ev.targetTouches[0].clientY;
     let distance = target.scrollHeight - target.clientHeight;
