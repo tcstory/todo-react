@@ -14,6 +14,14 @@ AppDispatcher.register((action)=>{
         case 'TOGGLE_TODO_STATUS':
             store.toggleTodoStatus(action.data);
             store.emitChange();
+            break;        
+        case 'RECORD_START_TIME':
+            store.recordStartTime(action.data);
+            store.emitChange();
+            break;        
+        case 'RECORD_END_TIME':
+            store.recordEndTime(action.data);
+            store.emitChange();
             break;
         default:
     }

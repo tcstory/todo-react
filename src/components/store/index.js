@@ -30,6 +30,22 @@ let store = assign({}, EventEmitter.prototype, {
             }
         }
     },
+    recordStartTime: function (data) {
+        for (let todo of _data.todoList) {
+            if (todo.id === data.id) {
+                todo.time.push(data.time);
+                break;
+            }
+        }
+    },
+    recordEndTime: function (data) {
+        for (let todo of _data.todoList) {
+            if (todo.id === data.id) {
+                todo.time.push(data.time);
+                break;
+            }
+        }
+    },
     emitChange: function() {
         this.emit('change');
         this._save();

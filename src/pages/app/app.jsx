@@ -9,6 +9,7 @@ import {STATUS} from '../../components/constants/';
 import Sidebar from '../../components/sidebar/index.jsx';
 import Header from '../../components/header/index.jsx';
 import TodoList from '../../components/todo-list/index.jsx';
+import TodoCard from '../../components/todo-card/index.jsx';
 import store from '../../components/store/index.js';
 
 
@@ -78,6 +79,7 @@ const App = React.createClass({
                 <main className="main">
                     <Header/>
                     <TodoList todoList={todos}/>
+                    <TodoCard/>
                 </main>
             </article>
         );

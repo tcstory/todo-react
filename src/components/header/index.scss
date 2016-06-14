@@ -43,6 +43,9 @@
         align-items: center;
         border-radius: 2em;
         cursor: pointer;
+        &:hover {
+            opacity: .85;
+        }
     }
     .bell-wrapper {
         width: 3.125em;

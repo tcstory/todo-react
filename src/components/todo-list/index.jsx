@@ -31,6 +31,13 @@ const TodoItem = React.createClass({
                     id: this.props.todo.id
                 }
             });
+            AppDispacher.dispatch({
+                type: 'RECORD_START_TIME',
+                data: {
+                    time: Date.now(),
+                    id: this.props.todo.id
+                }
+            });
         } else {
             AppDispacher.dispatch({
                 type: 'TOGGLE_TODO_STATUS',
@@ -39,16 +46,15 @@ const TodoItem = React.createClass({
                     id: this.props.todo.id
                 }
             });
+            AppDispacher.dispatch({
+                type: 'RECORD_END_TIME',
+                data: {
+                    time: Date.now(),
+                    id: this.props.todo.id
+                }
+            });
         }
     },
-    // handleModifyTodo: function () {
-        // PubSub.publish('modifyTodo', {
-            // title: this.props.todo.title,
-            // id: this.props.todo.id,
-            // createTime: this.props.todo.createTime,
-            // status: this.props.todo.status
-        // });
-    // },
     render: function () {
         let status;
         let checkoutBox;
@@ -90,9 +96,6 @@ const TodoItem = React.createClass({
                         }
                     </p>
                 </div>
-                {/*<div className="modify-todo-btn">*/}
-                {/*<i onClick={this.handleMOdifyTodo} className="fa fa-pencil-square-o modify-todo-btn-icon" aria-hidden="true"></i>*/}
-                {/*</div>*/}
                 <div className="checkout-box">
                     {checkoutBox}
                 </div>

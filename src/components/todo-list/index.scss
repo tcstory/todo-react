@@ -68,24 +68,6 @@
         display: inline-block;
         margin-right: .625em;
     }
-    .todo-item:hover .modify-todo-btn {
-        visibility: visible;
-        opacity: 1;
-    }
-    .modify-todo-btn {
-        width: 3.5em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        visibility: hidden;
-        opacity: 0;
-        transition: 300ms opacity ease-out;
-    }
-    .modify-todo-btn-icon {
-        font-size: 1.2em;
-        color: #00BCD4;
-        cursor: pointer;
-    }
     .checkout-box {
         width: 3.5em;
         display: flex;

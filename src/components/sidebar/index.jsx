@@ -3,7 +3,6 @@ import cx from 'classnames';
 
 import {STATUS} from '../constants/';
 require('./index.scss');
-
 const Sidebar = React.createClass({
     propTypes: {
         __changeTodoType: React.PropTypes.func
@@ -53,7 +52,7 @@ const Sidebar = React.createClass({
                 </div>
                 <div className="search-row">
                     <div className="search-icon">
-                        <i className="fa fa-search" aria-hidden="true"></i>
+                        <i className="fa fa-search" aria-hidden="true"/>
                     </div>
                     <input type="text" className="search-input" placeholder="Search"/>
                 </div>
@@ -64,7 +63,7 @@ const Sidebar = React.createClass({
                         <div className="category-item" onClick={this.handleItemClick.bind(this, 0)}>
                             <div className="icon-wrapper">
                                 <div className="icon">
-                                    <i className="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i className="fa fa-star-half-o" aria-hidden="true"/>
                                 </div>
                             </div>
                             <p className="category-text">All Tasks</p>
