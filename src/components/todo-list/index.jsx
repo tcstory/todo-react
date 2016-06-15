@@ -1,18 +1,17 @@
 import React from 'react';
 import AppDispacher from '../dispacher/dispacher.js';
-// import PubSub from 'pubsub-js';
+import PubSub from 'pubsub-js';
+const Immutable = require('immutable');
 
 import {STATUS} from '../constants/';
 require('./index.scss');
 import createScrollBar from '../scrollbar';
-
 import DateFormater from '../date-formater';
 
 
 const TodoItem = React.createClass({
     propTypes: {
-        todo: React.PropTypes.object,
-        todoList: React.PropTypes.array
+        todo: React.PropTypes.object
     },
     handleToggleTodoStatus: function (status) {
         if (status === STATUS.UNFINISHED) {
@@ -55,6 +54,9 @@ const TodoItem = React.createClass({
             });
         }
     },
+    handleTodoClick: function () {
+        PubSub.publish('openTodoCard', Immutable.fromJS(this.props.todo));
+    },
     render: function () {
         let status;
         let checkoutBox;
@@ -63,25 +65,34 @@ const TodoItem = React.createClass({
                 <div className="status-label done">Done</div>
             );
             checkoutBox = (
-                <i onClick={this.handleToggleTodoStatus.bind(this,STATUS.UNFINISHED)} className="fa fa-check-square checkout-icon" aria-hidden="true"/>
+                <i onClick={(ev)=>{
+                    ev.stopPropagation();
+                    this.handleToggleTodoStatus(STATUS.UNFINISHED)
+                }} className="fa fa-check-square checkout-icon" aria-hidden="true"/>
             );
         } else if (this.props.todo.status === STATUS.UNFINISHED) {
             status = (
                 <div className="status-label unfinished">Unfinished</div>
             );
             checkoutBox = (
-                <i onClick={this.handleToggleTodoStatus.bind(this,STATUS.ONGOING)} className="fa fa-square-o checkout-icon unfinished" aria-hidden="true"/>
+                <i onClick={(ev)=>{
+                    ev.stopPropagation();
+                    this.handleToggleTodoStatus(STATUS.ONGOING)
+                }} className="fa fa-square-o checkout-icon unfinished" aria-hidden="true"/>
             );
         } else if (this.props.todo.status === STATUS.ONGOING) {
             status = (
                 <div className="status-label ongoing">Ongoing</div>
             );
             checkoutBox = (
-                <i onClick={this.handleToggleTodoStatus.bind(this,STATUS.DONE)} className="fa fa-circle-o-notch checkout-icon ongoing" aria-hidden="true"/>
+                <i onClick={(ev)=>{
+                    ev.stopPropagation();
+                    this.handleToggleTodoStatus(STATUS.DONE)
+                }} className="fa fa-circle-o-notch checkout-icon ongoing" aria-hidden="true"/>
             );
         }
         return (
-            <div className="todo-item">
+            <div className="todo-item" onClick={this.handleTodoClick}>
                 <div className="user-avatar-wrapper">
                     <div className="user-avatar"></div>
                 </div>

@@ -13,7 +13,8 @@ const Header = React.createClass({
                 id: Math.random(),
                 createTime: Date.now(),
                 status: STATUS.UNFINISHED,
-                time: []
+                time: [],
+                tags: []
             }
         });
         this.refs.todoInput.value = '';
