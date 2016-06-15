@@ -2,6 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 import PubSub from 'pubsub-js';
 const Immutable = require('immutable');
+import AppDispacher from '../dispacher/dispacher.js';
+
 
 
 require('./index.scss');
@@ -79,7 +81,7 @@ const TodoCard = React.createClass({
                     <section className="row todo-input-row">
                         <header className="row-header">待办</header>
                         <div className="inner-row">
-                            <input type="text" className="todo-input" ref="todoInput"/>
+                            <input type="text" className="todo-input" ref="todoInput" onBlur={this.handleChangeTodoTitle}/>
                         </div>
                     </section>
                     <section className="row tag-input-row">
@@ -117,10 +119,25 @@ const TodoCard = React.createClass({
             curTodo: newCurTodo
         })
     },
+    handleChangeTodoTitle: function () {
+        let newCurTodo = this.state.curTodo.updateIn(['title'], ()=>{
+            return this.refs.todoInput.value;
+        });
+        this.setState({
+            curTodo: newCurTodo
+        })
+    },
     handleCloseTodoCard: function () {
         this.setState({
             showTodoCard: false
-        })
+        });
+        this.updateTodo();
+    },
+    updateTodo: function () {
+        AppDispacher.dispatch({
+            type: 'UPDATE_TODO',
+            data: this.state.curTodo.toJS()
+        });
     }
 });
 

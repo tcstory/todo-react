@@ -23,6 +23,10 @@ AppDispatcher.register((action)=>{
             store.recordEndTime(action.data);
             store.emitChange();
             break;
+        case 'UPDATE_TODO':
+            store.updateTodo(action.data);
+            store.emitChange();
+            break;
         default:
     }
 });
