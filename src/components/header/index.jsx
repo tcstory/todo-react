@@ -2,20 +2,18 @@ import React from 'react';
 import AppDispacher from '../dispacher/dispacher.js';
 
 import {STATUS} from '../constants/';
+import {getEmptyTask} from '../utils/';
 require('./index.scss');
 
 const Header = React.createClass({
     handleAddTodo: function () {
+        let newTodo = getEmptyTask();
+        newTodo.title = this.refs.todoInput.value;
+        newTodo.id = Math.random();
+        newTodo.createTime = Date.now();
         AppDispacher.dispatch({
             type: 'ADD_TODO',
-            data: {
-                title: this.refs.todoInput.value,
-                id: Math.random(),
-                createTime: Date.now(),
-                status: STATUS.UNFINISHED,
-                time: [],
-                tags: []
-            }
+            data: newTodo
         });
         this.refs.todoInput.value = '';
     },

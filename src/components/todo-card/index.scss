@@ -244,4 +244,75 @@
             opacity: .85;
         }
     }
+    .subTasks {
+        .inner-row {
+            padding-left: 2em;
+            margin-top: 1em;
+            padding-bottom: .8em;
+        }
+        .input-wrapper {
+            position: relative;
+            display: inline-block;
+            & > .icon {
+                width: 1.5em;
+                height: 1.5em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                right: 0;
+                top: 0;
+                color: #2196F3;
+                font-size: 1em;
+            }
+        }
+    }
+    .subTaskInput {
+        height: 1.7em;
+        width: 13.6em;
+        border-radius: .25em;
+        border: 0.0625em solid rgba(34, 36, 38, 0.15);
+        outline: none;
+        padding: 0 .25em;
+        font-size: .875em;
+    }
+    .subtask-list {
+        margin-left: 2em;
+        width: 11.875em;
+    }
+    .subtask-item {
+        height:1.5em;
+        display: flex;
+        align-items: center;
+        position: relative;
+        .icon {
+            width: 1.5em;
+            height: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            &.unfinished {
+                color: #ff6e66;
+            }
+            &.done {
+                color: #58C17C;
+            }
+        }
+        .delete-btn {
+            width: 1.5em;
+            height: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            color: red;
+        }
+    }
+    .subtask-title {
+        margin-left: .5em;
+    }
 }
