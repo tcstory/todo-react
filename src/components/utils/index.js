@@ -12,5 +12,12 @@ function getEmptyTask() {
         tags: []
     }
 }
+function getEmptySubTask() {
+    return {
+        title: '',
+        id: -1,
+        status: STATUS.UNFINISHED
+    }
+}
 
-export {getEmptyTask};
+export {getEmptyTask, getEmptySubTask};
