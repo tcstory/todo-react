@@ -27,6 +27,10 @@ AppDispatcher.register((action)=>{
             store.updateTodo(action.data);
             store.emitChange();
             break;
+        case 'DELETE_TODO':
+            store.deleteTodo(action.data);
+            store.emitChange();
+            break;
         default:
     }
 });

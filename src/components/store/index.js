@@ -18,6 +18,9 @@ let store = assign({}, EventEmitter.prototype, {
     getAll: function () {
         return _data;
     },
+    getTodoList: function () {
+        return _data.todoList;  
+    },
     addTodo: function (todo) {
         _data.todoList.unshift(todo);
     },
@@ -48,7 +51,16 @@ let store = assign({}, EventEmitter.prototype, {
     updateTodo: function (data) {
         for (let i = 0, len = _data.todoList.length; i < len; i++) {
             if (_data.todoList[i].id === data.id) {
-                _data.todoList.splice(i, 1, data)
+                _data.todoList.splice(i, 1, data);
+                break;
+            }
+        }
+    },
+    deleteTodo: function (data) {
+        for (let i = 0, len = _data.todoList.length; i < len; i++) {
+            if (_data.todoList[i].id === data.id) {
+                _data.todoList.splice(i,1);
+                break;
             }
         }
     },

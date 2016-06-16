@@ -4,12 +4,19 @@
     right: 0;
     bottom: 0;
     top: 0;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 10em;
+    padding-top: 5em;
     &.open {
-        display: flex;
+        visibility: visible;
+        opacity: 1;
+        transition: 300ms opacity ease-out;
+    }
+    &.close {
+        opacity: 0;
+        visibility: hidden;
+        transition: 300ms opacity ease-out, visibility 0s 300ms;
     }
 }
 

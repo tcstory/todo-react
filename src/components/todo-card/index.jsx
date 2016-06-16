@@ -5,7 +5,6 @@ const Immutable = require('immutable');
 import AppDispacher from '../dispacher/dispacher.js';
 
 
-
 require('./index.scss');
 
 
@@ -17,8 +16,9 @@ const TagInput = React.createClass({
     },
     getDefaultProps: function () {
         return {
-            handleAddTag: function() {}
-        }  
+            handleAddTag: function () {
+            }
+        }
     },
     render: function () {
         return (
@@ -28,14 +28,16 @@ const TagInput = React.createClass({
                         this.handleAddTag()
                     }
                 }}/>
-                <div className="confirm-btn"  onClick={this.handleAddTag}>添加</div>
+                <div className="confirm-btn" onClick={this.handleAddTag}>添加</div>
             </div>
         )
     },
     handleAddTag: function () {
         if (this.props.tagLength < 3) {
-            this.props.handleAddTag(this.refs.tagInput.value);
-            this.refs.tagInput.value = '';
+            if (this.refs.tagInput.value !== '') {
+                this.props.handleAddTag(this.refs.tagInput.value);
+                this.refs.tagInput.value = '';
+            }
         }
     }
 });
@@ -56,23 +58,17 @@ const TodoCard = React.createClass({
     },
     componentDidMount: function () {
         PubSub.subscribe('openTodoCard', (eventStr, todo)=> {
-            this.setState({
-                showTodoCard: true,
-                curTodo: todo
-            });
-            this.refs.todoInput.value = todo.get('title');
+            this._openTodoCard(todo);
         });
         PubSub.subscribe('closeTodoCard', ()=> {
-            this.setState({
-                showTodoCard: false,
-                curTodo: {}
-            })
+            this._closeTodoCard();
         });
     },
     render: function () {
         return (
             <article className={cx('todo-card-wrapper',{
-                'open': this.state.showTodoCard
+                'open': this.state.showTodoCard,
+                'close': !this.state.showTodoCard
             })}>
                 <div className="todo-card">
                     <div className="close-btn" onClick={this.handleCloseTodoCard}>
@@ -81,7 +77,8 @@ const TodoCard = React.createClass({
                     <section className="row todo-input-row">
                         <header className="row-header">待办</header>
                         <div className="inner-row">
-                            <input type="text" className="todo-input" ref="todoInput" onBlur={this.handleChangeTodoTitle}/>
+                            <input type="text" className="todo-input" ref="todoInput"
+                                   onBlur={this.handleChangeTodoTitle}/>
                         </div>
                     </section>
                     <section className="row tag-input-row">
@@ -105,7 +102,7 @@ const TodoCard = React.createClass({
                         <header className="row-header">时间</header>
                     </section>
                     <section className="row delete-todo-btn-row">
-                        <div className="delete-todo-btn">Delete Todo</div>
+                        <div className="delete-todo-btn" onClick={this.handleDeleteTodo}>Delete Todo</div>
                     </section>
                 </div>
             </article>
@@ -120,7 +117,7 @@ const TodoCard = React.createClass({
         })
     },
     handleChangeTodoTitle: function () {
-        let newCurTodo = this.state.curTodo.updateIn(['title'], ()=>{
+        let newCurTodo = this.state.curTodo.updateIn(['title'], ()=> {
             return this.refs.todoInput.value;
         });
         this.setState({
@@ -138,6 +135,35 @@ const TodoCard = React.createClass({
             type: 'UPDATE_TODO',
             data: this.state.curTodo.toJS()
         });
+    },
+    handleDeleteTodo: function () {
+        AppDispacher.dispatch({
+            type: 'DELETE_TODO',
+            data: {
+                id: this.state.curTodo.get('id')
+            }
+        });
+        this._closeTodoCard();
+    },
+    _openTodoCard: function (todo) {
+        this.setState({
+            showTodoCard: true,
+            curTodo: todo
+        });
+        this.refs.todoInput.value = todo.get('title');
+    },
+    _closeTodoCard: function () {
+        this.setState({
+            showTodoCard: false,
+            curTodo: Immutable.fromJS({
+                title: '',
+                id: -1,
+                createTime: -1,
+                status: -1,
+                time: [],
+                tags: []
+            })
+        })
     }
 });
 
