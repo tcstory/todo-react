@@ -3,6 +3,7 @@ import cx from 'classnames';
 import PubSub from 'pubsub-js';
 const Immutable = require('immutable');
 import AppDispacher from '../dispacher/dispacher.js';
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 
 require('./index.scss');
@@ -80,37 +81,39 @@ const SubTasks = React.createClass({
                     </div>
                 </div>
                 <div className="subtask-list">
-                    {
-                        this.props.subTasks.toJS().map((item) => {
-                            if (item.status === STATUS.DONE) {
-                                return (
-                                    <div className="subtask-item" key={item.id}>
-                                        <div className="icon done" onClick={this.handleToggleSubTask.bind(this,item.id)}>
-                                            <i className="fa fa-check-square"/>
+                    <ReactCSSTransitionGroup transitionName="adding-sub-task" transitionEnterTimeout={350} transitionLeaveTimeout={300}>
+                        {
+                            this.props.subTasks.toJS().map((item) => {
+                                if (item.status === STATUS.DONE) {
+                                    return (
+                                        <div className="subtask-item" key={item.id}>
+                                            <div className="icon done" onClick={this.handleToggleSubTask.bind(this,item.id)}>
+                                                <i className="fa fa-check-square"/>
+                                            </div>
+                                            <p className="subtask-title">{item.title}</p>
+                                            <div className="delete-btn">
+                                                <i className="fa fa-times"
+                                                   onClick={this.handleDeleteSubTask.bind(this,item.id)}/>
+                                            </div>
                                         </div>
-                                        <p className="subtask-title">{item.title}</p>
-                                        <div className="delete-btn">
-                                            <i className="fa fa-times"
-                                               onClick={this.handleDeleteSubTask.bind(this,item.id)}/>
+                                    )
+                                } else if (item.status === STATUS.UNFINISHED) {
+                                    return (
+                                        <div className="subtask-item" key={item.id}>
+                                            <div className="icon unfinished" onClick={this.handleToggleSubTask.bind(this,item.id)}>
+                                                <i className="fa fa-square-o"/>
+                                            </div>
+                                            <p className="subtask-title">{item.title}</p>
+                                            <div className="delete-btn">
+                                                <i className="fa fa-times"
+                                                   onClick={this.handleDeleteSubTask.bind(this,item.id)}/>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            } else if (item.status === STATUS.UNFINISHED) {
-                                return (
-                                    <div className="subtask-item" key={item.id}>
-                                        <div className="icon unfinished" onClick={this.handleToggleSubTask.bind(this,item.id)}>
-                                            <i className="fa fa-square-o"/>
-                                        </div>
-                                        <p className="subtask-title">{item.title}</p>
-                                        <div className="delete-btn">
-                                            <i className="fa fa-times"
-                                               onClick={this.handleDeleteSubTask.bind(this,item.id)}/>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        })
-                    }
+                                    )
+                                }
+                            })
+                        }
+                    </ReactCSSTransitionGroup>
                 </div>
             </section>
         )
@@ -196,7 +199,7 @@ const TodoCard = React.createClass({
             newSubTask.title = title;
             newSubTask.id = Math.random();
             newSubTask.status = STATUS.UNFINISHED;
-            return subTasks.push(newSubTask)
+            return subTasks.unshift(newSubTask)
         });
         this.setState({
             curTodo: newCurTodo

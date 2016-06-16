@@ -285,6 +285,15 @@
         display: flex;
         align-items: center;
         position: relative;
+        transition: transform 300ms ease-out,opacity 300ms ease-out,
+            300ms background-color ease-out;
+        &:hover {
+            background-color: #F6F7F9;
+            .delete-btn {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
         .icon {
             width: 1.5em;
             height: 1.5em;
@@ -308,11 +317,28 @@
             cursor: pointer;
             position: absolute;
             top: 0;
-            left: 100%;
+            right: 0;
             color: red;
+            opacity: 0;
+            transition: 300ms opacity ease-out;
+            pointer-events: none;
         }
     }
     .subtask-title {
         margin-left: .5em;
+    }
+    .adding-sub-task-enter {
+        opacity: 0;
+        transform: translateY(-1em);
+    }
+    .adding-sub-task-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .adding-sub-task-leave {
+
+    }
+    .adding-sub-task-leave-active {
+        transform: scale(0);
     }
 }
