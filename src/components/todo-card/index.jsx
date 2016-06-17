@@ -45,15 +45,18 @@ const Tags = React.createClass({
                     </div>
                 </div>
                 <div className="tags-wrapper">
+                    <ReactCSSTransitionGroup transitionName="adding-tag" transitionEnterTimeout={300}
+                                             transitionLeaveTimeout={300}>
                     {
-                        this.props.curTags.toJS().map((item, index)=> {
+                        this.props.curTags.toJS().map((item)=> {
                             return (
-                                <div className="tag-item" key={index} onClick={this.handleDeleteTag.bind(this,item)}>
+                                <div className="tag-item" key={item} onClick={this.handleDeleteTag.bind(this,item)}>
                                     <span className="tag-item-text">{item}</span>
                                 </div>
                             )
                         })
                     }
+                    </ReactCSSTransitionGroup>
                 </div>
             </section>
         )
@@ -272,14 +275,14 @@ const TodoCard = React.createClass({
     },
     handleDeleteTag: function (tag) {
         let newCurTodo = this.state.curTodo.updateIn(['tags'], (tags) => {
-            tags = tags.toJS();
-            for (let i = 0, len = tags.length; i < len; i++) {
-                if (tags[i] === tag) {
-                    tags.splice(i, 1);
-                    break;
+            let result = tags.toJS().filter((item)=>{
+                if (item === tag) {
+                    return false;
+                } else {
+                    return true;
                 }
-            }
-            return Immutable.List(tags);
+            })
+            return Immutable.List(result);
         });
         this.setState({
             curTodo: newCurTodo

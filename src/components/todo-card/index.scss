@@ -227,7 +227,23 @@
             z-index: 5;
             top: .5em;
         }
+        transition: transform 300ms ease-out;
+        &.adding-tag-enter {
+            opacity: 0;
+            transform: scale(0);
+        }
+        &.adding-tag-enter-active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        &.adding-tag-leave {
+
+        }
+        &.adding-tag-leave-active {
+            transform: scale(0);
+        }
     }
+
     .tag-item-text {
         font-size: .75em;
         color: rgba(0, 0, 0, .6);
@@ -296,6 +312,7 @@
         display: flex;
         align-items: center;
         position: relative;
+        color: rgba(0, 0, 0, 0.6);
         transition: transform 300ms ease-out,opacity 300ms ease-out,
             300ms background-color ease-out;
         &:hover {
