@@ -11,37 +11,71 @@ import {STATUS} from '../constants/';
 import {getEmptyTask, getEmptySubTask} from '../utils/';
 
 
-const TagInput = React.createClass({
+const Tags = React.createClass({
     propTypes: {
         handleAddTag: React.PropTypes.func,
-        curTags: React.PropTypes.array,
+        handleDeleteTag: React.PropTypes.func,
+        curTags: React.PropTypes.object,
         tagLength: React.PropTypes.number
     },
     getDefaultProps: function () {
         return {
             handleAddTag: function () {
-            }
+            },
+            handleDeleteTag: function () {
+            },
+            curTags: Immutable.fromJS([])
         }
     },
     render: function () {
         return (
-            <div className="tag-input-wrapper">
-                <input type="text" ref="tagInput" className="tag-input" onKeyUp={(ev)=>{
+            <section className="tags">
+                <div className="inner-row">
+                    <div className="tag-input-wrapper">
+                        <input type="text" maxLength="4" ref="tagInput" className="tag-input" onKeyUp={(ev)=>{
                     if (ev.keyCode == 13) {
                         this.handleAddTag()
                     }
                 }}/>
-                <div className="confirm-btn" onClick={this.handleAddTag}>添加</div>
-            </div>
+                        <div className={cx('confirm-btn',{
+                            'disabled': this.props.curTags.size === 3
+                        })} onClick={this.handleAddTag}>
+                            添加
+                        </div>
+                    </div>
+                </div>
+                <div className="tags-wrapper">
+                    {
+                        this.props.curTags.toJS().map((item, index)=> {
+                            return (
+                                <div className="tag-item" key={index} onClick={this.handleDeleteTag.bind(this,item)}>
+                                    <span className="tag-item-text">{item}</span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </section>
         )
     },
     handleAddTag: function () {
-        if (this.props.tagLength < 3) {
-            if (this.refs.tagInput.value !== '') {
-                this.props.handleAddTag(this.refs.tagInput.value);
-                this.refs.tagInput.value = '';
+        if (this.props.curTags.size < 3) {
+            if (this.refs.tagInput.value.length > 0 && this.refs.tagInput.value.length < 5) {
+                let flag = true;
+                for (let i of this.props.curTags.toJS()) {
+                    if (i === this.refs.tagInput.value) {
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    this.props.handleAddTag(this.refs.tagInput.value);
+                    this.refs.tagInput.value = '';
+                }
             }
         }
+    },
+    handleDeleteTag: function (tag) {
+        this.props.handleDeleteTag(tag);
     }
 });
 
@@ -81,13 +115,15 @@ const SubTasks = React.createClass({
                     </div>
                 </div>
                 <div className="subtask-list">
-                    <ReactCSSTransitionGroup transitionName="adding-sub-task" transitionEnterTimeout={350} transitionLeaveTimeout={300}>
+                    <ReactCSSTransitionGroup transitionName="adding-sub-task" transitionEnterTimeout={350}
+                                             transitionLeaveTimeout={300}>
                         {
                             this.props.subTasks.toJS().map((item) => {
                                 if (item.status === STATUS.DONE) {
                                     return (
                                         <div className="subtask-item" key={item.id}>
-                                            <div className="icon done" onClick={this.handleToggleSubTask.bind(this,item.id)}>
+                                            <div className="icon done"
+                                                 onClick={this.handleToggleSubTask.bind(this,item.id)}>
                                                 <i className="fa fa-check-square"/>
                                             </div>
                                             <p className="subtask-title">{item.title}</p>
@@ -100,7 +136,8 @@ const SubTasks = React.createClass({
                                 } else if (item.status === STATUS.UNFINISHED) {
                                     return (
                                         <div className="subtask-item" key={item.id}>
-                                            <div className="icon unfinished" onClick={this.handleToggleSubTask.bind(this,item.id)}>
+                                            <div className="icon unfinished"
+                                                 onClick={this.handleToggleSubTask.bind(this,item.id)}>
                                                 <i className="fa fa-square-o"/>
                                             </div>
                                             <p className="subtask-title">{item.title}</p>
@@ -164,20 +201,8 @@ const TodoCard = React.createClass({
                     </section>
                     <section className="row tag-input-row">
                         <header className="row-header">标签</header>
-                        <div className="inner-row">
-                            <TagInput handleAddTag={this.handleAddTag} tagLength={this.state.curTodo.get('tags').size}/>
-                        </div>
-                        <div className="tags-wrapper">
-                            {
-                                this.state.curTodo.get('tags').map((item, index)=> {
-                                    return (
-                                        <div className="tag-item" key={index}>
-                                            <span className="tag-item-text">{item}</span>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
+                        <Tags curTags={this.state.curTodo.get('tags')}
+                              handleAddTag={this.handleAddTag} handleDeleteTag={this.handleDeleteTag}/>
                     </section>
                     <section className="row">
                         <header className="row-header">子项目</header>
@@ -207,7 +232,7 @@ const TodoCard = React.createClass({
     },
     handleDeleteSubTask: function (id) {
         let newCurTodo = this.state.curTodo.updateIn(['subTasks'], (subTasks) => {
-            let result = subTasks.toJS().filter((item)=>{
+            let result = subTasks.toJS().filter((item)=> {
                 if (item.id === id) {
                     return false;
                 }
@@ -221,7 +246,7 @@ const TodoCard = React.createClass({
     },
     handleToggleSubTask: function (id) {
         let newCurTodo = this.state.curTodo.updateIn(['subTasks'], (subTasks) => {
-            let result =  subTasks.toJS().map((item)=>{
+            let result = subTasks.toJS().map((item)=> {
                 if (item.id === id) {
                     if (item.status === STATUS.UNFINISHED) {
                         item.status = STATUS.DONE;
@@ -240,6 +265,21 @@ const TodoCard = React.createClass({
     handleAddTag: function (tag) {
         let newCurTodo = this.state.curTodo.updateIn(['tags'], (tags) => {
             return tags.push(tag);
+        });
+        this.setState({
+            curTodo: newCurTodo
+        })
+    },
+    handleDeleteTag: function (tag) {
+        let newCurTodo = this.state.curTodo.updateIn(['tags'], (tags) => {
+            tags = tags.toJS();
+            for (let i = 0, len = tags.length; i < len; i++) {
+                if (tags[i] === tag) {
+                    tags.splice(i, 1);
+                    break;
+                }
+            }
+            return Immutable.List(tags);
         });
         this.setState({
             curTodo: newCurTodo
