@@ -183,6 +183,9 @@ const TodoCard = React.createClass({
         });
         PubSub.subscribe('closeTodoCard', ()=> {
             this._closeTodoCard();
+            this.setState({
+                curTodo: Immutable.fromJS(getEmptyTask())
+            })
         });
     },
     render: function () {
@@ -298,7 +301,8 @@ const TodoCard = React.createClass({
     },
     handleCloseTodoCard: function () {
         this.setState({
-            showTodoCard: false
+            showTodoCard: false,
+            curTodo: Immutable.fromJS(getEmptyTask())
         });
         this.updateTodo();
     },
